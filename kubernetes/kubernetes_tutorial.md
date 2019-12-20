@@ -51,3 +51,32 @@ and Node . It manages the Pods and the Container that runing on the machine.
 * kubectl logs $POD_NAME
 * kubectl exec $POD_NAME env
 * kubectl exec -it $POD_NAME bash
+
+## Expose Your App publicly
+### Kubernetes Services
+A service in kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. The  set of Pods
+targeted by a Service is usually determined by a LabelSelector
+Although each Pods has a unique IP, but those IPs are not exposed outside the cluster without a Service.
+Services can be exposed in different ways by specifying a type in
+the ServiceSpec:
+* ClusterIP     : Exposes the service on an internal IP, only reachable from within the cluster
+* NodePort      : Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+* LoadBalancer  : Creates an external load balancer and assigns a fixed, external IP
+* ExternalName  : Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+## scale Your app
+Scaling is accomplished by changing the number of replicas in a Deployment
+Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports autoscaling of Pods.
+### kubectl command
+* kubectl get deployment : list deployment
+* kubectl scale deployment/kubernetes-bootcamp --replicas=4   : scale the replicas of Pod
+* kubectl get pods -o wide : check the number of Pod
+* kubectl describe deployment/kubernetes-bootcamp  :  show these are 4 replicas with different IPs
+
+## Performing Rolling Update
+### update image and check rollout status
+* kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+* kubectl rollout status deployments/kubernetes-bootcamp
+### rollback
+* kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+* kubectl rollout undo deployments/kubernetes-bootcamp
