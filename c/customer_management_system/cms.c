@@ -250,7 +250,7 @@ CUSTOMER *load_data(char* path){
 int main(int argc,char** argv){
 
     if(argc<2){
-            printf("未指定数据文件路\n用法: ./cms  file_path\n");
+            printf("未指定数据文件路径\n用法: ./cms  file_path\n");
             exit(-1);
     }
     //获取文件路径
