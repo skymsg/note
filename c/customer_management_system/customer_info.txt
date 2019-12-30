@@ -1,0 +1,9 @@
+id name gender product price amount
+4 floyd male book 90 2
+1 tom male computer 1200 1
+3 alice female phone 800 1
+2 bob male shirt 200 3
+7 ava female lipstick 70 3
+5 bill male cake 20 4
+8 sophia female shoes 220 2
+6 jobs male computer 1300 2
