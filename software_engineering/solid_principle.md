@@ -10,7 +10,7 @@ Any derived class should be able to substitute its parent class without
 the consumer knowing about it.
 ## Interface Segregation Principle
 No client should be forced to depend on methods it does not use.
-ISP splits interfaces that are very large into smaller and more specific ones so that
+Interface Segregation Principle splits interfaces that are very large into smaller and more specific ones so that
 clients will only have to know about the methods that are of interest to them.
 ## Dependency Inversion Principle
 High-level modules should not depend on low-level modules. Both should
