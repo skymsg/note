@@ -1,4 +1,4 @@
-# solid priciple
+# solid principle
 ## Single Responsibility Principle
 A class should have one,and only one,reason to change.
 ## Open/Close Principle
