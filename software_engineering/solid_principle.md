@@ -6,8 +6,6 @@ A class should have one,and only one,reason to change.
 * Extend functionality by adding new code instead of changing existing code.
 * Separate the different behaviors, so the system can easily be extended, but never broken.
 ## Liskov Substitution Principle
-* Let F(x) be a property provable about objects x of Type T. Then F(y)
-should be true for objects y of Type S where S is subtype of T.
 * Any derived class should be able to substitute its parent class without
 the consumer knowing about it.
 ## Interface Segregation Principle
