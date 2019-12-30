@@ -10,7 +10,7 @@ A class should have one,and only one,reason to change.
 should be true for objects y of Type S where S is subtype of T.
 * Any derived class should be able to substitute its parent class without
 the consumer knowing about it.
-## Interface Segergation Principle
+## Interface Segregation Principle
 No client should be forced to depend on methods it does not use.
 ## Dependency Inversion Principle
 High-level modules should not depend on low-level modules. Both should
