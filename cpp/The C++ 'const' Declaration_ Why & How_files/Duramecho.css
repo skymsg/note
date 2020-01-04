@@ -1,0 +1,118 @@
+/*
+/ Main CSS for Duramecho.com website
+/  Version 14
+/  2018/2/22
+/
+/  By Andrew J. Hardwick
+/  http://duramecho.com
+*/
+
+/* Main element styling */
+
+BODY
+{	background-color: white;
+	color: black;
+	font-size: 10.25pt;}
+
+BODY,P,H1,H2,H3,H4,H5,H6,H7,UL,OL,DL,TABLE
+{	font-family: Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Helvetica, Arial, Sans-serif, Palatino, "Book Antiqua";
+	color: black;
+	text-indent: 0em;}
+
+P
+{	text-indent: 2em;}
+
+H1,H2,H3,H4,H5,H6,H7
+{	text-align: left;
+	margin-left: 0em;
+	font-weight: bold;}
+
+H1
+{	text-align: center;
+	margin-left: 0em;
+	font-size: 250%;}
+
+H2
+{	margin-left: 0em;
+	font-size: 158%;}
+
+H3
+{	margin-left: 2em;
+	font-size: 126%;}
+
+H4
+{	margin-left: 4em;
+	font-size: 112%;}
+
+H5
+{	margin-left: 6em;
+	font-size: 106%;}
+
+H6
+{	margin-left: 8em;
+	font-size: 103%;}
+
+H7
+{	margin-left: 10em;
+	font-size: 101%;}
+
+A:link
+{	color: #0000FF;}
+
+A:visited
+{	color: #A00000;}
+
+A:hover
+{	color: #FFFFFF;
+	background-color: #000080;}
+
+DL
+{	margin-left: 1em;
+	margin-right: 1em;}
+
+DT
+{	font-style: italic;
+	margin-top: 1ex;}
+
+DD
+{	font-style: normal;}
+
+CITE
+{	font-size: smaller;}
+
+BLOCKQUOTE
+{	margin-left: 3em;
+	margin-right: 3em;}
+
+PRE
+{	text-indent: 0em;
+	font-family: "Courier New";}
+
+CODE
+{	font-family: "Courier New", Courier, monospace;}
+
+/* Footer */
+
+HR.FooterSeparator
+{	margin-top: 2em;
+	width: 67%;}
+
+P.Footer
+{	font-size: smaller;
+	text-align: right;}
+
+/* Horizontal centring when required */
+
+P.CentredSubheading
+{	text-align: center;
+	text-indent: 0em;}
+
+P.CentredImageContainer
+{	text-align: center;
+	text-indent: 0em;}
+
+TABLE.Centred
+{	margin-left: auto;
+	margin-right: auto;}
+
+/* End of File */

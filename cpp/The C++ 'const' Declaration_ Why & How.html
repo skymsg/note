@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0060)http://duramecho.com/ComputerInformation/WhyHowCppConst.html -->
+<html><head lang="en.uk"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>The C++ 'const' Declaration: Why &amp; How</title><link rel="STYLESHEET" href="./The C++ &#39;const&#39; Declaration_ Why &amp; How_files/Duramecho.css" type="text/css"></head>
+<body youdao="bind">
+<h1>The C++ 'const' Declaration: Why &amp; How</h1>
+<p>The 'const' system is one of the really messy features of C++.</p>
+<p>It is simple in concept: variables declared with ‘const’ added
+become constants and cannot be altered by the program. However it is
+also used to bodge in a substitute for one of the missing features of
+C++ and there it
+gets horridly complicated and sometimes frustratingly restrictive. The
+following attempts
+to explain how 'const' is used and why it exists.</p>
+<h2>Simple Use of ‘const’</h2>
+<p>The simplest use is to declare a named constant. This was available in the ancestor of C++, C.</p><p>To do this, one declares a
+constant as if it was a variable but add ‘const’ before it. One has
+to initialise it immediately in the constructor because, of course, one cannot
+set the value later as that would be altering it. For example,</p>
+<blockquote><div><code>const int Constant1=96;</code> </div></blockquote>
+<p>will create an integer constant, unimaginatively called
+‘<code>Constant1</code>’, with the value 96.</p>
+<p>Such constants are useful for parameters which are used in the program but
+do not need to be changed after the program is compiled. It has an
+advantage for programmers over the C preprocessor
+‘<code>#define</code>’ command in that it is understood &amp; used by
+the compiler itself, not just substituted into the program text by the
+preprocessor before reaching the main compiler, so error messages are much more
+helpful.</p>
+<p>It also works with pointers but one has to be careful where
+‘<code>const’</code> is put as that determines whether the pointer or what it
+points to is constant. For example,</p>
+<blockquote><div><code>const int * Constant2</code> </div></blockquote>
+<p>declares that <code>Constant2</code> is a variable pointer to a constant
+integer and</p>
+<blockquote><div><code>int const * Constant2</code></div></blockquote>
+<p>is an alternative syntax which does the same, whereas </p>
+<blockquote><div><code>int * const Constant3</code></div></blockquote>
+<p>declares that <code>Constant3</code> is constant pointer to a variable
+integer and </p>
+<blockquote><div><code>int const * const Constant4</code></div></blockquote>
+<p>declares that Constant4 is constant pointer to a constant integer. Basically
+‘const’ applies to whatever is on its immediate left (other than if
+there is nothing there in which case it applies to whatever is its immediate
+right).</p>
+<h2>Use of ‘const’ in Functions Return Values</h2>
+<p>Of the possible combinations&nbsp; of pointers and ‘<code>const</code>’, the constant
+pointer to a variable is useful for storage that can be changed in value but
+not moved in memory.</p><p>Even more useful is a&nbsp;pointer (constant or otherwise) to a ‘<code>const</code>’ value. This is useful for
+returning constant strings and arrays from functions which, because they are
+implemented as pointers, the program could otherwise try to alter and crash.
+Instead of a difficult to track down crash, the attempt to alter unalterable
+values will be detected during compilation.</p>
+<p>For example, if a function which returns a fixed ‘Some text’
+string is written like</p>
+<blockquote><div><code>char *Function1()<br>
+{ return “Some text”;}</code></div></blockquote>
+<p>then the program could crash if it accidentally tried to alter the value
+doing </p>
+<blockquote><div><code>Function1()[1]=’a’;</code></div></blockquote>
+<p>whereas the compiler would have spotted the error if the original function
+had been written</p>
+<blockquote><div><code>const char *Function1()<br>
+{ return "Some text";}</code></div></blockquote>
+<p>because the compiler would then know that the value was unalterable. (Of
+course, the compiler could theoretically have worked that out anyway but C is
+not that clever.)</p>
+<h2>Where it Gets Messy - in Parameter Passing</h2>
+<p>When a subroutine or function is called with parameters, variables passed as
+the parameters might be read from in order to transfer data into the
+subroutine/function, written to in order to transfer data back to the calling program or
+both to do both. Some languages enable one to specify this directly, such as
+having ‘<code>in:</code>’, ‘<code>out:</code>’ &amp;
+‘<code>inout:</code>’ parameter types, whereas in C one has to work
+at a lower level and specify the method for passing the variables choosing one
+that also allows the desired data transfer direction.</p>
+<p>For example, a subroutine like</p>
+<blockquote><div><code>void Subroutine1(int Parameter1)<br>
+{ printf("%d",Parameter1);}</code></div></blockquote>
+<p>accepts the parameter passed to it in the default C &amp; C++ way - which is a
+copy. Therefore the subroutine can read the value of the variable passed to it
+but not alter it because any alterations it makes are only made to the copy and
+are lost when the subroutine ends. E.g.</p>
+<blockquote><div><code>void Subroutine2(int Parameter1)<br>
+{ Parameter1=96;}</code></div></blockquote>
+<p>would leave the variable it was called with unchanged not set to 96. </p>
+<p>The addition of an ‘<code>&amp;</code>’ to the parameter name in
+C++ (which was a very confusing choice of symbol because an
+‘<code>&amp;</code>’ in front of variables elsewhere in C generates
+pointers!) causes the actual variable itself, rather than a copy, to be
+used as the parameter in the subroutine and therefore can be written to thereby
+passing data back out the subroutine. Therefore</p>
+<blockquote><div><code>void Subroutine3(int &amp;Parameter1) <br>
+{ Parameter1=96;}</code></div></blockquote>
+<p>would set the variable it was called with to 96. This method of passing a
+variable as itself rather than a copy is called a ‘reference’ in C++. 
+</p>
+<p>That way of passing variables was a C++ addition to C. To pass an alterable
+variable in original C, a rather involved method was used. This involved <a href="http://duramecho.com/ComputerInformation/WhyCPointers.html">using a pointer</a> to the variable as the parameter
+then altering what it pointed to was used. For example</p>
+<blockquote><div><code>void Subroutine4(int *Parameter1) <br>
+{ *Parameter1=96;}</code></div></blockquote>
+<p> works but requires the every use of the variable in the called
+routine&nbsp;altered like that and the calling routine also altered to
+pass a pointer to the variable. It is&nbsp;rather cumbersome.</p>
+<p>But where does ‘<code>const</code>’ come into this? Well, there is
+a second common use for passing data by reference or pointer instead of as a copy.
+That is when copying the variable would waste too much memory or take too
+long. This is particularly likely with large &amp; compound user-defined variable
+types (‘structures’ in C &amp; ‘classes’ in C++). So
+a subroutine declared</p>
+<blockquote><div><code>void Subroutine4(big_structure_type &amp;Parameter1);</code> 
+</div></blockquote>
+<p>might being using ‘<code>&amp;</code>’ because it is going to
+alter the variable passed to it or it might just be to save copying time and
+there is no way to tell which it is if the function is compiled in someone
+else’s library. This could be a risk if one needs to trust&nbsp;the
+subroutine not to alter the variable.</p>
+<p>To solve this, ‘<code>const</code>’ can be used in the
+parameter list. E.g.</p>
+<blockquote><div><code>void Subroutine4(big_structure_type const
+&amp;Parameter1);</code></div></blockquote>
+<p>which will cause the variable to be passed without copying but stop it from
+then being altered. This is messy because it is essentially making an in-only
+variable passing method from a both-ways variable passing method which was
+itself made from an in-only variable passing method just to trick the compiler
+into doing some optimization.</p>
+<p>Ideally, the programmer should not need control this detail of specifying
+exactly how it variables are passed, just say which direction the information
+goes and leave the compiler to optimize it automatically, but C was designed
+for raw low-level programming on far less powerful computers than are standard
+these days so the programmer has to do it explicitly.</p>
+<h2>Messier Still - in the Object Oriented Programming</h2>
+<p>In <a href="http://duramecho.com/ComputerInformation/WhatIsObjectOrientedProgramming.html">Object Oriented
+Programming</a>, calling a ‘method’ (the Object Oriented name for a
+function) of an object gives an extra complication. As well as the
+variables in the parameter list, the method has access to the member variables
+of the object itself which are always passed directly not as copies. For
+example a trivial class, ‘<code>Class1</code>’, defined as</p>
+<blockquote><div><code>class Class1<br>
+{ void Method1();<br>
+&nbsp; int MemberVariable1;}</code></div></blockquote>
+<p>has no explicit parameters at all to ‘<code>Method1</code>’ but
+calling it in an object in this class might alter
+‘<code>MemberVariable1</code>’ of that object if
+‘<code>Method1</code>’ happened to be, for example,</p>
+<blockquote><div><code>void Class1::Method1()<br>
+{ MemberVariable1=MemberVariable1+1;}</code></div></blockquote>
+<p>The solution to that is to put ‘<code>const</code>’ after the
+parameter list like</p>
+<blockquote><div><code>class Class2<br>
+{ void Method1() const;<br>
+&nbsp; int MemberVariable1;}</code></div></blockquote>
+<p>which will ban <code>Method1</code> in <code>Class2</code> from being
+anything which can attempt to alter any member variables in the object.</p>
+<p>Of course one sometimes needs to combine some of these different uses of
+‘<code>const</code>’ which can get confusing as in</p>
+<blockquote><div><code>const int*const Method3(const int*const&amp;)const;</code> 
+</div></blockquote>
+<p>where the 5 uses ‘<code>const</code>’ respectively mean that the
+variable pointed to by the returned pointer &amp; the returned pointer itself
+won’t be alterable and that the method does not alter the variable pointed
+to by the given pointer, the given pointer itself &amp; the object of which it
+is a method!.</p>
+<h2>Inconveniences of ‘const’</h2>
+<p>Besides the confusingness of the ‘<code>const</code>’ syntax,
+there are some useful things which the system prevents programs doing.</p>
+<p>One in particular annoys me because my programs often needed to be optimized
+for speed. This is that a method which is declared
+‘<code>const</code>’ cannot even make changes to the hidden parts of
+its object that would not make any changes that would be apparent from the
+outside. This includes storing intermediary results of long calculations which
+would save processing time in subsequent calls to the class’s methods.
+Instead it either has to pass such intermediary results back to the calling
+routine to store and pass back next time (messy) or recalculate from scratch
+next time (inefficient). In later versions of C++, the
+‘<code>mutable</code>’ keyword was added which enables
+‘<code>const</code>’ to be overridden for this purpose but it totally
+relies on trusting the programmer to only use it for that purpose so, if you
+have to write a program using someone else's class which uses
+‘<code>mutable</code>’ then you cannot guarantee that
+‘<code>mutable</code>’ things will really be constant which
+renders ‘<code>const</code>’ virtually useless.</p>
+<p>One cannot simply avoid using ‘<code>const</code>’ on class
+methods because ‘<code>const</code>’ is infectious. An object which
+has been made ‘<code>const</code>’, for example by being passed as a
+parameter in the ‘<code>const &amp;</code>’ way, can only have those
+of its methods that are explicitly declared ‘<code>const</code>’
+called (because C++’s calling system is too simple to work out which methods
+not explicitly declared ‘<code>const</code>’ don’t actually
+change anything). Therefore class methods that don’t change the object are
+best declared ‘<code>const</code>’ so that they are not prevented
+from being called when an object of the class has somehow acquired
+‘<code>const</code>’ status. In later versions of C++, an object or variable which has been declared&nbsp;‘<code>const</code>’ can be converted to changeable by use of&nbsp;‘<code>const_cast</code>’ which is a similar bodge to&nbsp;‘<code>mutable</code>’ and using it likewise renders ‘<code>const</code>’ virtually useless. </p>
+<hr>
+<p class="Footer">By <a href="http://duramecho.com/Anent/Contact.html">Andrew Hardwick</a>.<br>
+Distributable under <a href="http://duramecho.com/Anent/Licenses.html#GPL">GPL</a> freeware
+licence. <br>
+Written 2001.<br>
+Converted to HTML &amp; augmented 2002/3/13.<br>
+Updated 2002/8/9, 2004/7/19, 2005/6/9 &amp; 2006/5/22.<br>Spelling corrections 2008/3/4.<br>Grammar corrections &amp; clarifications 2011/6/16.<br>Typo corrections 2011/12/29, 2012/4/4 &amp; 2015/11/12.<br>
+Available on-line at <a href="http://duramecho.com/">http://duramecho.com</a>. 
+</p>
+<div id="ydNoteExtensionClipper" style="position: fixed; right: 10px; top: 10px; padding-bottom: 10px; font: 12px / 100% arial, sans-serif; color: rgb(51, 51, 51); z-index: 2147483647 !important; height: 230px; width: 300px; display: none;"><div id="ydNoteExtensionClipper-New" class="ydnwc-dialog" style="width: 292px;"><div id="ydNoteExtensionClipper_view" style="height: 220px; width: 290px;"></div><div id="ydNoteExtensionClipper_loadview" style="position: absolute; height: 258px; background: rgb(255, 255, 255); top: 0px; left: 50%; display: none;"><img src="./The C++ &#39;const&#39; Declaration_ Why &amp; How_files/loading.gif" style="position: absolute;top: 20%;margin-left: -20px;"></div></div><div style="display: none;"><form id="_YNoteContentForm" name="_YNoteContentForm" action="http://note.youdao.com/yws/mapi/wcp?method=putfile&amp;keyfrom=wcp&amp;from=chrome&amp;vendor=ChromeStore&amp;vn=2" target="1ContentFrame&amp;ChromeStore" enctype="multipart/form-data" method="POST"><input type="text" name="tl" id="_YNoteContentFormtitle" value=""><input type="text" name="p" id="_YNoteContentFormpath" value=""><textarea name="bs" id="_YNoteContentFormcontent"></textarea><input type="text" name="src" id="_YNoteContentFormsource" value=""><input type="text" name="type" id="_YNoteContentFormtype" value=""><input type="text" name="userid" id="_YNoteContentFormuserid" value=""><input type="text" name="len" id="_YNoteContentFormlen" value=""><input type="text" name="cs" id="_YNoteContentFormcharset" value=""><input type="text" name="e" id="_YNoteContentFormsign" value=""></form></div></div></body></html>
