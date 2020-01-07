@@ -1,0 +1,58 @@
+set nocompatible
+filetype off
+"set the runtime path to include vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"let vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+call vundle#end()
+
+set nu
+colorscheme desert
+syntax on
+set showcmd
+filetype plugin indent on 
+
+" file encoding and  fileformat
+set fileformat=unix
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,cp936
+
+"indent and tab
+set cindent
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" cursor highlight
+set cursorline 
+set cursorcolumn
+hi CursorLine   cterm=NONE ctermbg=black ctermfg=NONE
+hi CursorColumn cterm=NONE ctermbg=black  ctermfg=NONE
+
+" File find and  completion
+set path+=**
+set wildmenu
+
+" FILE BROWSING:
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+
+"text  display
+set nowrap
+set showmatch
+set scrolloff=5
+set laststatus=2
+
+map tt  :NERDTreeToggle<CR>
