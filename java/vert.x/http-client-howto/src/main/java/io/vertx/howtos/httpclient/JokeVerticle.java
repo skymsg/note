@@ -1,8 +1,8 @@
 package io.vertx.howtos.httpclient;
 
-import io.vertx.core.AbstracVerticle;
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
-import io.vertx.json.JsonObject;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
@@ -17,7 +17,7 @@ public class JokeVerticle extends AbstractVerticle {
     public void start(){
 
         request = WebClient.create(vertx)
-            .get(443,"icanhazdadjoke.com",/)
+            .get(443,"icanhazdadjoke.com","/")
             .ssl(true)
             .putHeader("Accept","application/json")
             .as(BodyCodec.jsonObject())
@@ -39,7 +39,7 @@ public class JokeVerticle extends AbstractVerticle {
     
     public static void main(String[] args){
         Vertx vertx = Vertx.vertx();
-        vettx.deployVerticle(new JokeVerticle());
+        vertx.deployVerticle(new JokeVerticle());
     }
 
 }
