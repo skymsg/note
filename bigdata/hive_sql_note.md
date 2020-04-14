@@ -13,15 +13,15 @@ PARTITIONED BY (
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n'
-STORED AS TEXTFILE LOCATION 'hdfs://localhost:9000/logs';
+STORED AS TEXTFILE LOCATION 'hdfs://localhost:port/path';
 ```
 ## drop table
 drop  table logs
 
 ## add partition
 ```sql
-ALTER TABLE logs  ADD IF NOT EXISTS PARTITION(dt='2020-04-01') LOCATION 'hdfs://localhost:9000/logs/dt=2020-04-01';
-ALTER TABLE logs  ADD IF NOT EXISTS PARTITION(dt='2020-04-01',hour=11) LOCATION 'hdfs://localhost:9000/logs/dt=2020-04-01/hour=11';
+ALTER TABLE logs  ADD IF NOT EXISTS PARTITION(dt='2020-04-01') LOCATION 'hdfs://localhost:port/path/dt=2020-04-01';
+ALTER TABLE logs  ADD IF NOT EXISTS PARTITION(dt='2020-04-01',hour=11) LOCATION 'hdfs://localhost:port/path/dt=2020-04-01/hour=11';
 ```
 
 ## drop partition
