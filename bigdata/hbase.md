@@ -1,4 +1,4 @@
-#hbase
+# hbase
 ## get
 get 'table' , rowkey
 ## scan
@@ -10,7 +10,7 @@ scan 'table', {COLUMNS => 'info', FILTER => SingleColumnValueFilter.new(Bytes.to
 
 1. 停止表继续插入
 
- hbase shell>disable 'tableName'
+hbase shell>disable 'tableName'
 
 2. 制作快照
 hbase shell> snapshot 'tableName', 'tableSnapshot'
@@ -21,5 +21,5 @@ hbase shell> clone_snapshot 'tableSnapshot', 'newTableName'
 4. 删除快照
 hbase shell> delete_snapshot 'tableSnapshot'
 
-5.删除原来表
+5. 删除原来表
 hbase shell> drop 'tableName'
