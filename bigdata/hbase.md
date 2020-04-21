@@ -9,7 +9,6 @@ scan 'table', {COLUMNS => 'info', FILTER => SingleColumnValueFilter.new(Bytes.to
 因为hbase中没有rename命令，所以更改表名比较复杂。重命名主要通过hbase的快照功能。
 
 1. 停止表继续插入
-
 hbase shell>disable 'tableName'
 
 2. 制作快照
