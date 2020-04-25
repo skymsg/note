@@ -1,7 +1,8 @@
 # tornado keep-alive
 ## tornado官网对keep-alive的说明
 ```
-HTTPServer supports keep-alive connections by default (automatically for HTTP/1.1, or for HTTP/1.0 when the client requests Connection: keep-alive).
+HTTPServer supports keep-alive connections by default (automatically for HTTP/1.1,
+or for HTTP/1.0 when the client requests Connection: keep-alive).
 ```
 tornado的http server 默认支持长连接 (HTTP/1.1 协议自动为长连接   HTTP/1.0协议 需要在请求头中配置 Connection: keep-alive)
 ## 使用curl 构造请求验证
