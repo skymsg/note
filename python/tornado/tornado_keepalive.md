@@ -56,7 +56,7 @@ curl -v 'http://127.0.0.1:1000/_health' 'http://127.0.0.1:1000/_health'
 * Connection #0 to host 127.0.0.1 left intact
 {"code": 0, "msg": "SUCCESS", "data": 1}* Closing connection 0
 ```
-可以看到第二次的请求出现了 Re-using existing connection! 说明第一次的连接没有关闭
+可以看到第二次的请求使用的连接和第一次使用的连接都是 Connection #0 说明第一次的连接没有关闭
 
 查看 tornado 打印的日志 
 ```
