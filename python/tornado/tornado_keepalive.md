@@ -246,5 +246,8 @@ Connection: keep-alive
 
 ## 结论
 使用HTTP/1.1时, tornado 使用的是长连接
+
 使用HTTP/1.0时, 加了Connection: keep-alive 使用长连接
+
 使用HTTP/1.0时, 不加Connection: keep-alive 使用短连接
+
