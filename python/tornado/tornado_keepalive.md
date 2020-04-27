@@ -1,7 +1,8 @@
 # tornado keep-alive
 ## tornado官网对keep-alive的说明
 ```
-HTTPServer supports keep-alive connections by default (automatically for HTTP/1.1, or for HTTP/1.0 when the client requests Connection: keep-alive).
+HTTPServer supports keep-alive connections by default (automatically for HTTP/1.1,
+or for HTTP/1.0 when the client requests Connection: keep-alive).
 ```
 tornado的http server 默认支持长连接 (HTTP/1.1 协议自动为长连接   HTTP/1.0协议 需要在请求头中配置 Connection: keep-alive)
 ## 使用curl 构造请求验证
@@ -56,7 +57,7 @@ curl -v 'http://127.0.0.1:1000/_health' 'http://127.0.0.1:1000/_health'
 * Connection #0 to host 127.0.0.1 left intact
 {"code": 0, "msg": "SUCCESS", "data": 1}* Closing connection 0
 ```
-可以看到第二次的请求出现了 Re-using existing connection! 说明第一次的连接没有关闭
+可以看到第二次的请求使用的连接和第一次使用的连接都是 Connection #0 说明第一次的连接没有关闭
 
 查看 tornado 打印的日志 
 ```
@@ -246,5 +247,8 @@ Connection: keep-alive
 
 ## 结论
 使用HTTP/1.1时, tornado 使用的是长连接
+
 使用HTTP/1.0时, 加了Connection: keep-alive 使用长连接
+
 使用HTTP/1.0时, 不加Connection: keep-alive 使用短连接
+
