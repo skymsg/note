@@ -7,6 +7,7 @@ scan 'table', {COLUMNS => 'info', FILTER => SingleColumnValueFilter.new(Bytes.to
 
 ## delete
 delete 'table','row','cloumnFamily','timestamp'
+
 deleteall 'table','row'
 
 ## rename table
