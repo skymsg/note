@@ -5,6 +5,10 @@ get 'table' , rowkey
 scan 'table', { CLOUMNS => ['c1','c2'], LIMIT => 10}
 scan 'table', {COLUMNS => 'info', FILTER => SingleColumnValueFilter.new(Bytes.toBytes('info'), Bytes.toBytes('userId'), CompareFilter::CompareOp.valueOf('EQUAL'), Bytes.toBytes('1012'))}
 
+## delete
+delete 'table','row','cloumnFamily','timestamp'
+deleteall 'table','row'
+
 ## rename table
 因为hbase中没有rename命令，所以更改表名比较复杂。重命名主要通过hbase的快照功能。
 
