@@ -11,7 +11,13 @@ import io.vertx.ext.web.client.WebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class ApiVerticle extends AbstractVerticle {
 
@@ -53,9 +59,10 @@ public class ApiVerticle extends AbstractVerticle {
                             long length = Long.parseLong(contentLengthHeader);
                             long rangeCount = length / BatchConfig.getBatchBytesSize()
                                     + (length % BatchConfig.getBatchBytesSize() > 0 ? 1 : 0);
-                            for (int i = 0; i < rangeCount; i++) {
-                                vertx.eventBus().send("DataSource-Range-Request",contentLengthHeader+"/"+i);
-                            }
+                            List<String> rangeList = LongStream.range(0, rangeCount)
+                                    .mapToObj(x -> contentLengthHeader + "/" + x)
+                                    .collect(Collectors.toList());
+                            vertx.eventBus().send("DataProcessVerticle",rangeList);
                         }
                     } else {
                         ar.cause().printStackTrace();

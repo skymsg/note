@@ -24,7 +24,7 @@ public class DataFetchVerticle extends AbstractVerticle {
         webClient = WebClient.create(vertx);
         fileSystem = vertx.fileSystem();
         EventBus eventBus = vertx.eventBus();
-        eventBus.consumer("DataSource-Range-Request").handler(this::dataSourceFetch);
+        eventBus.consumer("DataFetchVerticle").handler(this::dataSourceFetch);
     }
 
 
@@ -46,7 +46,8 @@ public class DataFetchVerticle extends AbstractVerticle {
                 .send(ar->{
                     if(ar.succeeded()){
                         HttpResponse<Buffer> result = ar.result();
-                        downloadToFile(startIndex, result);
+                        rangeMsg.reply(result.bodyAsBuffer());
+//                        downloadToFile(startIndex, result);
                     }else {
                         logger.error("拉取文件range失败： "+rangeHeader);
                         ar.cause().printStackTrace();

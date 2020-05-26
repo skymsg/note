@@ -15,13 +15,15 @@ public class FilterLauncher {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new ApiVerticle());
-        vertx.deployVerticle(new DataFetchVerticle(),
-                new DeploymentOptions()
-                        .setWorker(true)
-                        .setWorkerPoolName("data-fetch")
-                        .setInstances(1)
-                        .setWorkerPoolSize(10)
-        );
+        vertx.deployVerticle(new DataFetchVerticle());
+        /**
+         ,
+         new DeploymentOptions()
+         .setWorker(true)
+         .setWorkerPoolName("data-fetch")
+         .setInstances(1)
+         .setWorkerPoolSize(10)
+         */
         logger.debug("vertx launched !!!");
     }
 }
