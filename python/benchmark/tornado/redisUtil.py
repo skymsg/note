@@ -13,7 +13,7 @@ class RedisUtil(object):
 
     def __init__(self):
         print("创建RedisUtil实例")
-        self._redis_conn = StrictRedis(host='localhost',port=6379,decode_responses=True)
+        self._redis_conn = StrictRedis(host='39.106.14.18',port=6379,max_connections=800,decode_responses=True)
     
     async def get(self,key):
         res = await self._redis_conn.get(key)
