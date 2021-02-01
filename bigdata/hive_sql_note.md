@@ -79,6 +79,21 @@ select * from q1;
 with q1 as (select key from src where key='4')
 select * from v1;
 
+```
 
+##  lateral view explode
+```sql
 
+SELECT
+    tmp.itemid as app_id,
+    SPLIT_PART(tmp.sim_item_score,':',1) as sim_app,
+    SPLIT_PART(tmp.sim_item_score,':',2) as sim_score
+FROM (
+    SELECT
+        itemid,
+        sim_item_score
+    FROM
+         ${t1}
+    lateral view explode(split(similarity,' ')) similarity AS sim_item_score
+) tmp
 ```
