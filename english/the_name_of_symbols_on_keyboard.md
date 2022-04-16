@@ -59,3 +59,5 @@ exclamation mark
 apostophe
 # "
 quotation marks
+# ...
+ellipsis points: indicates the omitted words or to add effect to a sentence
