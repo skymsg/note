@@ -97,3 +97,10 @@ FROM (
     lateral view explode(split(similarity,' ')) similarity AS sim_item_score
 ) tmp
 ```
+```syntax
+
+lateralView: lateral view udtf  table alias as columnAlias
+
+fromClause: from baseTable lateralView
+
+```
