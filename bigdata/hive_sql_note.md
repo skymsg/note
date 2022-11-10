@@ -104,3 +104,6 @@ lateralView: lateral view udtf  table alias as columnAlias
 fromClause: from baseTable lateralView
 
 ```
+## change column name or column type or column order
+ALTER TABLE <table_name> CHANGE <column_name> <new_column_name> <new_data_type> after <other column name>;
+
