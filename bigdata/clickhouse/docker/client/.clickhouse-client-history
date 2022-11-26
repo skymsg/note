@@ -1,0 +1,36 @@
+### 2022-11-19 04:42:25.775
+show databases;
+### 2022-11-19 04:42:36.456
+use system;
+### 2022-11-19 04:42:42.199
+select * from users;
+### 2022-11-19 04:42:51.264
+select * from tables;
+### 2022-11-19 04:43:01.800
+select * from users \G;
+### 2022-11-19 04:43:13.048
+show tables;
+### 2022-11-19 04:43:31.584
+select * from trace_log;
+### 2022-11-19 04:48:11.532
+select version();
+### 2022-11-19 04:48:28.180
+ls /
+### 2022-11-19 04:58:23.583
+SELECT    formatReadableQuantity(uniq(URL)) AS cardinality_URL,    formatReadableQuantity(uniq(UserID)) AS cardinality_UserID,    formatReadableQuantity(uniq(IsRobot)) AS cardinality_IsRobotFROM(    SELECT        c11::UInt64 AS UserID,        c15::String AS URL,        c20::UInt8 AS IsRobot    FROM url('https://datasets.clickhouse.com/hits/tsv/hits_v1.tsv.xz')    WHERE URL != '')
+### 2022-11-19 18:54:47.991
+select * from generateRandom('uuid UUID,context Text,userId Int64,name String,dt Datetime') limit 100;
+### 2022-11-19 18:55:01.575
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime') limit 100;
+### 2022-11-19 18:55:31.879
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime')  where dt<'2022-11-20' limit 100;
+### 2022-11-19 18:56:28.767
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime',1,10)  where dt<'2022-11-20' limit 100;
+### 2022-11-19 18:56:46.183
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime',1,1)  where dt<'2022-11-20' limit 100;
+### 2022-11-19 18:56:54.519
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime',0,10)  where dt<'2022-11-20' limit 100;
+### 2022-11-19 18:57:01.671
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime',null,1)  where dt<'2022-11-20' limit 100;
+### 2022-11-19 18:57:11.551
+select * from generateRandom('uuid UUID,context Text,userId UInt64,name String,dt Datetime',0,10,2)  where dt<'2022-11-20' limit 100;
