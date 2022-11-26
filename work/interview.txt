@@ -1,0 +1,35 @@
+## topk
+从input.txt中取100个最大的数字
+## parallel topk 
+从input目录中的所有文件取100个最大的数字(需要用并行处理)
+## linux
+* 1_获取端口对应的进程
+* 2_在当前⽬录下查找所有包含某个（"warehouse"）字符串的⽂件
+* 3_杀死所有java进程
+* 4_打印30天前的日期_格式参考2020-05-10
+* 5_打印本周的所有日期_格式参考2020-05-10  
+
+days=7
+for ((i=0;i< ${days};i++))
+do
+day=`date -d "-${i}day" '+%Y-%m-%d'`
+echo ${day}
+done
+
+## 用flink统计视频播放量
+    kafka 消息为json
+    * 视频id video_id
+    * 用户id user_id
+    * 播放时间 
+    * 页面位置 position  枚举值:  forum_rec：论坛推荐  index_video：首页视频 video_rec_list：视频流
+    * 统计来自论坛推荐的每天的视频播放次数(60秒内的重复播放只计入一次)
+    * sink 到mysql或者redis
+
+
+## flink-cdc 捕获mysql数据的原理
+dump binlog的权限 : GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'user'@'%';
+
+## flink exactly-once语义
+## 用flink实现统计指标时如何保证容错
+
+redis数据结构
