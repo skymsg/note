@@ -1,0 +1,10 @@
+In 2022, even if you can use just brew..
+brew install openjdk@17 
+
+Java will be installed here:
+/usr/local/opt/openjdk@17/bin/java
+
+For the system Java wrappers to find this JDK, symlink it with:
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+
+
