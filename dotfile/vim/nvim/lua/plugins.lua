@@ -18,10 +18,19 @@ require('packer').startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'shaunsingh/nord.nvim'
-
+    
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons',
+        },
+        tag = 'nightly'
+    }
 
 end 
 )
+
+require("nvim-tree").setup()
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
