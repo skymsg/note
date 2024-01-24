@@ -1,4 +1,5 @@
 #mitigate
+ to make less severe or painful, to become less harsh
 #chilly
 #humid
 #empirical
